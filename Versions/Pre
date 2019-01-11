@@ -1,0 +1,9 @@
+Version: Pre
+
+Unfinished but decided to just release the first version fo it. For some reason CR_PRINTO function does not work but will fix that in the next release, CR_PRINTO function breaking causes other functions that print out to not work but printnum works for some reason. Weird. 
+
+In the next update there will be:
+	-Keyboard Input
+	-Printo Fix
+	-Color support
+	-System calls
