@@ -14,12 +14,12 @@ KERNEL_OFFSET equ 0x1000 ; The same one we used when linking the kernel
     call switch_to_pm ; disable interrupts, load GDT,  etc. Finally jumps to 'BEGIN_PM'
     jmp $ ; Never executed
 
-%include "boot/print.asm"
-%include "boot/print_hex.asm"
-%include "boot/disk.asm"
-%include "boot/gdt.asm"
-%include "boot/32bit_print.asm"
-%include "boot/switch_pm.asm"
+%include "print.asm"
+%include "print_hex.asm"
+%include "disk.asm"
+%include "gdt.asm"
+%include "32bit_print.asm"
+%include "switch_pm.asm"
 
 [bits 16]
 load_kernel:
@@ -28,7 +28,7 @@ load_kernel:
     call print_nl
 
     mov bx, KERNEL_OFFSET ; Read from disk and store in 0x1000
-    mov dh, 16 ; Our future kernel will be larger, make this big
+    mov dh, 31 ; Our future kernel will be larger, make this big
     mov dl, [BOOT_DRIVE]
     call disk_load
     ret
@@ -45,6 +45,7 @@ BOOT_DRIVE db 0 ; It is a good idea to store it in memory because 'dl' may get o
 MSG_REAL_MODE db "Started in 16-bit Real Mode", 0
 MSG_PROT_MODE db "Landed in 32-bit Protected Mode", 0
 MSG_LOAD_KERNEL db "Loading kernel into memory", 0
+MSG_RETURNED_KERNEL db "Returned from kernel. Error?", 0
 
 ; padding
 times 510 - ($-$$) db 0
