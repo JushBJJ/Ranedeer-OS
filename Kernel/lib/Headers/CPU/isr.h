@@ -1,7 +1,7 @@
 #ifndef ISR_H
   #define ISR_H
 
-  #include <CPU/types.h>
+  #include <other/types.h>
 
   extern void isr0();
   extern void isr1();
@@ -78,7 +78,8 @@
   } registersT;
 
   void isr_install();
-  void IsrHandler(registersT r);
+  void IsrHandler(registersT *t);
+  void irq_install();
 
   typedef void (*isrT)(registersT);
   void RegisterInterruptHandler(u8 n,isrT handler);

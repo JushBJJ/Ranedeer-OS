@@ -1,11 +1,11 @@
 #include <Drivers/screen.h>
-#include <Drivers/ports.h>
-#include <utils.h>
-#include <Data.h>
-#include <Ranedeerio.h>
+#include <CPU/ports.h>
+#include <String/utils.h>
+#include <io/Data.h>
+#include <io/Ranedeerio.h>
+#include <other/types.h>
 
 //Private Declarations
-  int GetCursorOffset();
   int putchar(char byte,int col,int row,char attr);
   int GetOffset(int col, int row);
   int GetOffsetRow(int offset);
@@ -64,6 +64,14 @@
   void SetCursorPosition(int col,int row){
     CR_PRINTO(" ",col,row);
   }
+
+  void Backspace(){
+    int offset=GetCursorOffset()-2;
+    int col=GetOffsetCol(offset);
+    int row=GetOffsetRow(offset);
+
+    putchar(0x08,col,row,_NormalColor);
+  }
 //Private Kernel Functions
 int GetCursorOffset(){
   int ret;
@@ -84,6 +92,8 @@ void SetCursorOffset(int offset){
 }
 
 int putnum(int n,int col, int row, char attr){
+  int z;
+
   char s[100000];
   int i,sign,x;
   char c;
@@ -103,7 +113,10 @@ int putnum(int n,int col, int row, char attr){
   s[i]='\0';
 
   i,x=0;
-  for(i=0,x=GetCharSize(s);i<x;i++,x--){
+  for(int zx=0;s[i]!=0||s[i]!='\0';i++){
+    z=zx;
+  }
+  for(i=0,x=z;i<x;i++,x--){
     c=s[i];
     s[i]=s[x];
     s[x]=c;
@@ -113,7 +126,7 @@ int putnum(int n,int col, int row, char attr){
 }
 
 int putchar(char byte,int col, int row,char attr){
-  unsigned char *_VMADDR=(unsigned char *)_VMAddress;
+  u8 *_VMADDR=(u8*)_VMAddress;
   if(!attr){
     attr=_NormalColor;
   }
@@ -135,6 +148,10 @@ int putchar(char byte,int col, int row,char attr){
     row=GetOffsetRow(offset);
     offset=GetOffset(0,row+1);
   }
+  else if(byte==0x08){
+    _VMADDR[offset]=' ';
+    _VMADDR[offset+1]=attr;
+  }
   else{
     _VMADDR[offset]=byte;
     _VMADDR[offset+1]=attr;
@@ -144,11 +161,11 @@ int putchar(char byte,int col, int row,char attr){
   if(offset>=_MAXROW*_MAXCOL*2){
     int i;
     for(i=1;i<_MAXROW;i++){
-      memcp(GetOffset(0,i)+_VMADDR,
-            GetOffset(0,i-1)+_VMADDR,
+      memcp((u8*)(GetOffset(0,i)+_VMADDR),
+            (u8*)(GetOffset(0,i-1)+_VMADDR),
             _MAXCOL*2);
     }
-    char *lastline=GetOffset(0,_MAXROW-1)+_VMADDR;
+    char *lastline=(char*)(GetOffset(0,_MAXROW-1)+(u8*)_VMADDR);
     for(i=0;i<_MAXCOL*2;i++){
       lastline[i]=0;
     }

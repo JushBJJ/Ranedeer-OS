@@ -1,8 +1,10 @@
 #include <CPU/isr.h>
 #include <CPU/idt.h>
 #include <Drivers/screen.h>
-#include <utils.h>
-#include <Drivers/ports.h>
+#include <String/utils.h>
+#include <CPU/ports.h>
+#include <CPU/timer.h>
+#include <Drivers/keyboard.h>
 
 isrT InterruptHandlers[256];
 
@@ -106,13 +108,13 @@ char *ExceptionMessages[]={
   "Reserved"
 };
 
-void IsrHandler(registersT r){
+void IsrHandler(registersT *t){
   printo("Recieved Interrupt: ");
   char s[3];
-  ToAscii(r.IntNo,s);
+  ToAscii(t->IntNo,s);
   printo(s);
   printo("\n");
-  printo(ExceptionMessages[r.IntNo]);
+  printo(ExceptionMessages[t->IntNo]);
   printo("\n");
 }
 
@@ -120,14 +122,19 @@ void RegisterInterruptHandler(u8 n,isrT handler){
   InterruptHandlers[n]=handler;
 }
 
-void irqhandler(registersT r){
-  if(r.IntNo>=40){
+void irqhandler(registersT *t){
+  if(t->IntNo>=40){
     PBO(0xA0,0x20);
   }
   PBO(0x20,0x20);
 
-  if(InterruptHandlers[r.IntNo]!=0){
-    isrT handler=InterruptHandlers[r.IntNo];
-    handler(r);
+  if(InterruptHandlers[t->IntNo]!=0){
+    isrT handler=InterruptHandlers[t->IntNo];
+    handler(*t);
   }
+}
+
+void irq_install(){
+  initTimer(50);
+  initKeyboard();
 }
