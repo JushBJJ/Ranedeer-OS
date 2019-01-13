@@ -1,7 +1,7 @@
 #ifndef IDT_H
   #define IDT_H
 
-  #include <CPU/types.h>
+  #include <other/types.h>
 
   #define KernelCS 0x08
 

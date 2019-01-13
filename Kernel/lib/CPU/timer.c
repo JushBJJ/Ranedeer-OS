@@ -1,17 +1,12 @@
 #include <CPU/timer.h>
 #include <Drivers/screen.h>
-#include <utils.h>
+#include <String/utils.h>
 #include <CPU/isr.h>
-#include <Drivers/ports.h>
+#include <CPU/ports.h>
 u32 tick=0;
 
 static void TimerCallback(registersT regs){
   tick++;
-  char TickAscii[256];
-  printo("Tick :");
-  ToAscii(tick,TickAscii);
-  printo(TickAscii);
-  printo("\n");
 }
 
 void initTimer(u32 freq){
