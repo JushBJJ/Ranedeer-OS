@@ -1,13 +1,13 @@
-C_SOURCES = $(wildcard Kernel/kernel.c Kernel/lib/CPU/*.c Kernel/lib/io/*.c Kernel/lib/Signal/*.c Kernel/lib/String/*.c Kernel/lib/Drivers/*.c Kernel/lib/other/2*.c)
-HEADERS = $(wildcard Kernel/lib/Headers/Kernel.h Kernel/lib/Headers/CPU/*.h Kernel/lib/Headers/Drivers/*.h Kernel/lib/Headers/io/*.h Kernel/lib/Headers/other/*.h Kernel/lib/Headers/Signal/*.h Kernel/lib/Headers/String/*.h)
+C_SOURCES = $(wildcard Kernel/libc/*/*.c Kernel/kernel.c Kernel/Kernel.c)
+HEADERS = $(wildcard Kernel/include/*.h)
 # Nice syntax for file extension replacement
-OBJ = ${C_SOURCES:.c=.o Kernel/lib/CPU/interrupt.o}
+OBJ = ${C_SOURCES:.c=.o Kernel/last/interrupt.o}
 
 # Change this if your cross-compiler is somewhere else
 CC = /usr/bin/gcc
 GDB = /usr/bin/gdb
 # -g: Use debugging symbols in gcc
-CFLAGS = -g -m32 -IKernel/lib/Headers -fno-PIE
+CFLAGS = -g -m32 -IKernel/include -fno-PIE
 
 # First rule is run by default
 Ranedeer.bin: Kernel/boot/bootsect.bin Kernel/kernel.bin
@@ -42,4 +42,4 @@ debug: Ranedeer.bin kernel.elf
 	nasm -IKernel/boot/ $< -f bin -o $@
 
 clean:
-	rm Kernel/lib/CPU/*.o Kernel/lib/Drivers/*.o Kernel/lib/io/*.o Kernel/lib/other/*.o Kernel/lib/Signal/*.o Kernel/lib/String/*.o Kernel/boot/*.bin Kernel/lib/CPU/interrupt.o
+	rm Kernel/*/*.o Kernel/libc/*/*.o
