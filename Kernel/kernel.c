@@ -1,11 +1,12 @@
 #include <stdio.h>
-
-char IN[1000];
+#include <isr.h>
+#include <idt.h>
+#include <screen.h>
 
 void startkernel(){
-  clear();
   isr_install();
   irq_install();
-  char *a="abc";
-  printf("test %s",a);
+  clear();
+
+  printo("Hello ","World!\n");
 }
