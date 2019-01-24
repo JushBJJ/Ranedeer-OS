@@ -2,18 +2,8 @@
   #define ISR_H
 
   #include <types.h>
-  
-  typedef struct{
-    u32 ds; //Data Segment
-    u32 edi,esi,ebp,esp,ebx,edx,ecx,eax; //32 bit registers (obviously)
-    u32 IntNo,ErrCode;
-    u32 eip,cs,eflags,useresp,ss;
-  } registersT;
 
-
-  typedef void (*isrT)(registersT);
   void RegisterInterruptHandler(u8 n,isrT handler);
-
   void isr_install();
   void IsrHandler(registersT *t);
   void irq_install();

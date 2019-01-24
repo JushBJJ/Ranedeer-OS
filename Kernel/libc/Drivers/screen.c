@@ -8,6 +8,8 @@
 #include <memory.h>
 
 //Small Functions (Private)
+  int C_Size(char *s);
+
   int GetOffset(int col, int row){
     return 2*(row*_MAXCOL+col);
   }
@@ -17,6 +19,15 @@
 
   int GetOffsetCol(int offset){
     return (offset-(GetOffsetRow(offset))*2*_MAXCOL)/2;
+  }
+  int C_Size(char *s){
+    int i=0;
+    while(s[i]!='\0'){
+      if(s[i]<32)
+        break;
+      i++;
+    }
+    return i;
   }
 
 //Public
@@ -50,38 +61,34 @@
     return offset;
   }
 
-  void printo(char *message){
-    int offset=CR_PRINTO(message,CC,CR);
-    CC=GetOffsetCol(offset);
-    CR=GetOffsetRow(offset);
-  }
-
-  void printf(char *message,...){
+  void printo(char *message,...){
     CC=GetOffsetCol(GetCursorOffset());
     CR=GetOffsetRow(GetCursorOffset());
 
     char *s;
-    int i=0;
-    int x=0;
     va_list ap;
     va_start(ap,message);
+
+    vprinto(message);
+
     while(*message){
-      switch(*message++){
-        case 's':
-          s=va_arg(ap,char *);
-          printf(s);
-          i++;
-          break;
-        default:
-          printc(message[i]);
-          i++;
-          break;
+      s=va_arg(ap,char *);
+      if(s[0]=='\0'){
+        break;
       }
+      vprinto(s);
     }
     va_end(ap);
+
     CC=GetOffsetCol(GetCursorOffset());
     CR=GetOffsetRow(GetCursorOffset());
 
+  }
+
+  void vprinto(char *message){
+    int offset=CR_PRINTO(message,CC,CR);
+    CC=GetOffsetCol(offset);
+    CR=GetOffsetRow(offset);
   }
 
   void printnum(int num){
@@ -92,6 +99,7 @@
 
   void SetCursorPosition(int col,int row){
     CR_PRINTO(" ",col,row);
+    Backspace();
   }
 
   void Backspace(){

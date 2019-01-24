@@ -13,4 +13,14 @@
   #define low_16(address)(u16)((address)&0xFFFF)
   #define high_16(address)(u16)(((address)>>16)&0xFFFF)
 
+  typedef struct{
+    u32 ds; //Data Segment
+    u32 edi,esi,ebp,esp,ebx,edx,ecx,eax; //32 bit registers (obviously)
+    u32 IntNo,ErrCode;
+    u32 eip,cs,eflags,useresp,ss;
+  } registersT;
+
+
+  typedef void (*isrT)(registersT);
+
 #endif

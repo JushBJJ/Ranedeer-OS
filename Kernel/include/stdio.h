@@ -12,11 +12,12 @@
   void input(char To[]);
   char *strtok(char str[], char delim);
   void SetToChar(char To[]);
-  void printo(char *message);
   int CR_PRINTO(char *Message,int col, int row);
   void printnum(int num);
   void printc(char c);
   int putchar(char byte, int col, int row, char attr);
   int putnum(int n,int col, int row, char attr);
-  void printf(char *message,...);
+
+  void printo(char *message,...);
+  void vprinto(char *message);
 #endif
