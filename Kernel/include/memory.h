@@ -3,13 +3,24 @@
 
 #include <types.h>
 
+/* Malloc */
+static unsigned char mem[20000]; /* 1mb */
+static size_t Next_Index=0;
+
+struct Malloc_Block{
+  size_t size;
+  int free;
+  struct Malloc_Block *next;
+};
+struct Malloc_Block *Free_List=(void *)mem;
+
 /* Functions */
 
-void *memcpy(void *dest, void *src,unsigned int n);
-void *memset(void *dst,int c,unsigned int n);
-void *malloc(unsigned int size);
+void *memcpy(void *dest, void *src,size_t n);
+void *memset(void *dst,int c,size_t n);
+void *malloc(size_t size);
 void initialize();
-void split(struct Malloc_Block *Fitting_Slot_Size,unsigned int size);
+void split(struct Malloc_Block *Fitting_Slot_Size,size_t size);
 void merge();
 void free(void *ptr);
 

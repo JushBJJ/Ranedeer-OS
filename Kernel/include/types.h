@@ -1,5 +1,7 @@
 #ifndef TYPES_H
   #define TYPES_H
+  #include <stdint.h>
+  #include <stddef.h>
 
   typedef unsigned int u32;
   typedef int s32;
@@ -7,8 +9,6 @@
   typedef short s16;
   typedef unsigned char u8;
   typedef char s8;
-
-  #define size_t unsigned int;
 
   #define low_16(address)(u16)((address)&0xFFFF)
   #define high_16(address)(u16)(((address)>>16)&0xFFFF)
@@ -20,7 +20,10 @@
     u32 eip,cs,eflags,useresp,ss;
   } registersT;
 
-
   typedef void (*isrT)(registersT);
+
+  typedef struct{
+    char str[200];
+  }str_t;
 
 #endif

@@ -165,13 +165,17 @@ void KeyboardOut(u8 scancode){
   break;
   case 0x1C:
     printo("\n");
+    AddtoChar(KeyBuffer,'\n');
     if(InputEnabled==1){
+      int a;
       RetKB[0]='\0';
       for(int i=0;KeyBuffer[i]!='\0';i++){
         RetKB[i]=KeyBuffer[i];
       }
+
       SendSignal(SIG_INPUT);
       SetToChar(RetKB);
+
       int x=strlen(RetKB);
       for(int i=0;i<x;i++){
         RetKB[i]='\0';

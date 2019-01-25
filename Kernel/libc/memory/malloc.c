@@ -7,7 +7,7 @@ void initialize(){
   Free_List->next=NULL;
 }
 
-void split(struct Malloc_Block *Fitting_Slot_Size,unsigned int size){
+void split(struct Malloc_Block *Fitting_Slot_Size,size_t size){
   struct Malloc_Block *new=(void*)((void*)Fitting_Slot_Size+size+sizeof(struct Malloc_Block));
   new->size=(Fitting_Slot_Size->size)-size-sizeof(struct Malloc_Block);
   new->free=1;
@@ -34,7 +34,7 @@ void merge(){
 void free(void *ptr){
   if(((void*)mem<=ptr)&&(ptr<=(void*)(mem+20000))){
     struct Malloc_Block* curr=ptr;
-    curr--;
+    curr=curr-1;
     curr->free=1;
     merge();
   }
@@ -43,7 +43,7 @@ void free(void *ptr){
   }
 }
 
-void *malloc(unsigned int size)
+void *malloc(size_t size)
 {
     struct Malloc_Block *curr,*prev;
     void *result;
