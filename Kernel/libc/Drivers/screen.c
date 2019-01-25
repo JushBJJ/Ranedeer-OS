@@ -41,6 +41,7 @@
   int CR_PRINTO(char *Message,int col, int row){
     int offset;
     int i=0;
+    char *x=malloc(2);
 
     if(col>=0&&row>=0){
       offset=GetOffset(col,row);
@@ -52,49 +53,72 @@
     }
 
     i=0;
+    /* &&Message[i]>=32&&Message[i]<=127 */
     while(Message[i]!=0){
-      offset=putchar(Message[i++],col,row,_NormalColor);
+      CC=GetOffsetCol(GetCursorOffset());
+      CR=GetOffsetRow(GetCursorOffset());
+      strcpy(x,Message);
+      printc(x[i]);
+      i++;
 
-      row=GetOffsetRow(offset);
-      col=GetOffsetCol(offset);
+      row=CC;
+      col=CR;
     }
     return offset;
   }
 
-  void printo(char *message,...){
-    CC=GetOffsetCol(GetCursorOffset());
-    CR=GetOffsetRow(GetCursorOffset());
-
-    char *s;
+  void printo(const char *message,...){
     va_list ap;
     va_start(ap,message);
-
-    vprinto(message);
-
-    while(*message){
-      s=va_arg(ap,char *);
-      if(s[0]=='\0'){
-        break;
-      }
-      vprinto(s);
-    }
+    vprinto(message,ap);
     va_end(ap);
-
-    CC=GetOffsetCol(GetCursorOffset());
-    CR=GetOffsetRow(GetCursorOffset());
-
   }
 
-  void vprinto(char *message){
-    int offset=CR_PRINTO(message,CC,CR);
-    CC=GetOffsetCol(offset);
-    CR=GetOffsetRow(offset);
+  void vprinto(const char *message,va_list ap){
+    int pointer=0;
+
+    char *str=(char *)malloc(1000);
+    int decimal=0;
+    char c;
+
+    while(message[pointer]!='\0'){
+      if(message[pointer]=='%'){
+        pointer++;
+        switch(message[pointer]){
+            case 's':
+              pointer++;
+              str=va_arg(ap,char *);
+              if(str[0]!='\0'){
+                printo(str);
+              }
+              break;
+            case 'd':
+              pointer++;
+              decimal=va_arg(ap,int);
+              printnum(decimal);
+              break;
+            case 'c':
+              pointer++;
+              c=va_arg(ap,int);
+              printc(c);
+              break;
+            default:
+              pointer=pointer-1;
+              printc(message[pointer]);
+              pointer++;
+              break;
+          }
+      }
+      else{
+        printc(message[pointer]);
+        pointer++;
+      }
+    }
   }
 
   void printnum(int num){
-    int offset=putnum(num,CC,CR,_NormalColor);
-    CC=GetOffsetCol(offset);
-    CR=GetOffsetRow(offset);
+    char *ret=itoa(num);
+    printo("%s",ret);
   }
 
   void SetCursorPosition(int col,int row){
@@ -126,40 +150,6 @@ void SetCursorOffset(int offset){
   PBO(_REGSCREENDATA,(unsigned char)(offset>>8));
   PBO(_REGSCREENCTRL,15);
   PBO(_REGSCREENDATA,(unsigned char)(offset&0xff));
-}
-
-int putnum(int n,int col, int row, char attr){
-  int z;
-
-  char s[100000];
-  int i,sign,x;
-  char c;
-  i=0;
-
-  if((sign=n)<0){
-    n=n-n;
-  }
-  do{
-    s[i++]=n%10+'0';
-  }
-  while((n/=10)>0);
-
-  if(sign<0){
-    s[i++]='-';
-  }
-  s[i]='\0';
-
-  i,x=0;
-  for(int zx=0;s[i]!=0||s[i]!='\0';i++){
-    z=zx;
-  }
-  for(i=0,x=z;i<x;i++,x--){
-    c=s[i];
-    s[i]=s[x];
-    s[x]=c;
-  }
-  int offset=CR_PRINTO(s,col,row);
-  return offset;
 }
 
 int putchar(char byte,int col, int row,char attr){

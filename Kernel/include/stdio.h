@@ -6,6 +6,9 @@
   #include <isr.h>
   #include <idt.h>
   #include <types.h>
+  #include <stdarg.h>
+
+  static size_t s_pointer=0;
 
   char ToChar[100000];
   int GetCharSize(char *target);
@@ -18,6 +21,6 @@
   int putchar(char byte, int col, int row, char attr);
   int putnum(int n,int col, int row, char attr);
 
-  void printo(char *message,...);
-  void vprinto(char *message);
+  void printo(const char *message,...);
+  void vprinto(const char *message,va_list ap);
 #endif
