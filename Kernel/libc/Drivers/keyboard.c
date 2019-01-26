@@ -1,15 +1,7 @@
 #include <keyboard.h>
-#include <ports.h>
-#include <isr.h>
-#include <screen.h>
-#include <Data.h>
-#include <string.h>
-#include <memory.h>
-#include <Kernel.h>
 #include <stdio.h>
-#include <signal.h>
-#include <timer.h>
-
+#include <Data.h>
+#include <ports.h>
 
 static int BARRIER;
 
@@ -99,8 +91,8 @@ void KeyboardOut(u8 scancode){
   case 0x0E:
     if(GetCursorOffset()!=BARRIER){
       Backspace();
-      BackspaceChar();
     }
+    BackspaceChar();
   break;
   case 0x0F:
     printo("    ");

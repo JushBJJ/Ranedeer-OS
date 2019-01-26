@@ -1,10 +1,3 @@
-#include <keyboard.h>
-#include <screen.h>
-#include <signal.h>
-#include <stdio.h>
-#include <timer.h>
-#include <string.h>
-#include <Kernel.h>
 #include <__IN__.h>
 #include <isr.h>
 
@@ -17,7 +10,5 @@ int input(){
 
   }
   DisableInterrupts();
-
-  printo("INPUT: %s\n",__IN__);
   return 1; /* true */
 }

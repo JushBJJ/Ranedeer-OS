@@ -2,9 +2,8 @@
   #define KEYBOARD_H
   #include <types.h>
   #include <memory.h>
+  #include <__IN__.h>
 
-  static char KeyBuffer[1000];
-  static char *RetKB;
   static int ready=0;
 
   void initKeyboard();
@@ -13,6 +12,8 @@
   void SetCursorBarrier(int offset);
   void EnableKeyboard();
   void EnableInput();
-  void AddtoChar(char c);
+
   void BackspaceChar();
+  void AddtoChar(char c);
+
 #endif
