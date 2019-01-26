@@ -19,3 +19,11 @@ void initTimer(u32 freq){
   PBO(0x40,low);
   PBO(0x40,high);
 }
+
+void Wait(int Sec){
+  Sec=Sec*15000000;
+  int i;
+  while(i<Sec){
+    i++;
+  }
+}

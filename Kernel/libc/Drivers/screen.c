@@ -41,7 +41,6 @@
   int CR_PRINTO(char *Message,int col, int row){
     int offset;
     int i=0;
-    char *x=malloc(2);
 
     if(col>=0&&row>=0){
       offset=GetOffset(col,row);
@@ -57,8 +56,7 @@
     while(Message[i]!=0){
       CC=GetOffsetCol(GetCursorOffset());
       CR=GetOffsetRow(GetCursorOffset());
-      strcpy(x,Message);
-      printc(x[i]);
+      printc(Message[i]);
       i++;
 
       row=CC;
@@ -77,7 +75,7 @@
   void vprinto(const char *message,va_list ap){
     int pointer=0;
 
-    char *str=(char *)malloc(1000);
+    char *str;
     int decimal=0;
     char c;
 

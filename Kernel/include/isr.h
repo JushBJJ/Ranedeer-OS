@@ -3,10 +3,14 @@
 
   #include <types.h>
 
+  static int sti=0;
+
   void RegisterInterruptHandler(u8 n,isrT handler);
   void isr_install();
   void IsrHandler(registersT *t);
   void irq_install();
+  void EnableInterrupts();
+  void DisableInterrupts();
 
   extern void isr0();
   extern void isr1();
