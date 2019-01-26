@@ -7,12 +7,13 @@
   #include <idt.h>
   #include <types.h>
   #include <stdarg.h>
+  #include <Kernel.h>
 
   static size_t s_pointer=0;
 
-  char ToChar[100000];
   int GetCharSize(char *target);
-  void input(char To[]);
+  void _input();
+  int input();
   char *strtok(char str[], char delim);
   void SetToChar(char To[]);
   int CR_PRINTO(char *Message,int col, int row);

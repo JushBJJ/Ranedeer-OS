@@ -110,13 +110,7 @@ char *ExceptionMessages[]={
 };
 
 void IsrHandler(registersT *t){
-  printo("Recieved Interrupt: ");
-  char s[3];
-  IntToAscii(t->IntNo,s);
-  printo(s);
-  printo("\n");
-  printo(ExceptionMessages[t->IntNo]);
-  printo("\n");
+  printo("Recieved Interrupt: %d\nException Message: %s\n",t->IntNo,ExceptionMessages[t->IntNo]);
 }
 
 void RegisterInterruptHandler(u8 n,isrT handler){
@@ -135,7 +129,17 @@ void irqhandler(registersT *t){
   }
 }
 
-void irq_install(){
+void EnableInterrupts(){
+  isr_install();
   initTimer(50);
   initKeyboard();
+  if(!sti){
+    asm("sti");
+  }
+}
+
+void DisableInterrupts(){
+  KeyBuffer[0]='\0';
+  asm("cli");
+  sti=0;
 }

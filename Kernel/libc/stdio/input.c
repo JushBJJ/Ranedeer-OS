@@ -4,31 +4,20 @@
 #include <stdio.h>
 #include <timer.h>
 #include <string.h>
+#include <Kernel.h>
+#include <__IN__.h>
+#include <isr.h>
 
-int x;
-
-void input(char To[]){
-  SetCursorBarrier(GetCursorOffset());
-  int sigret=WaitForSignal(SIG_INPUT);
-
-  if(sigret==SIG_INPUT){
-    for(int i=0;ToChar[i]!='\0';i++){
-      To[i]=ToChar[i];
-    }
-    for(int i=0;i<sizeof(ToChar);i++){
-      ToChar[i]='\0';
-    }
-    return;
-  }
-  else
-    return;
+void _input(){
+  __INPUT_DONE=true;
 }
 
-void SetToChar(char *To){
-  for(int i=0;To[i]!='\0';i++){
-    ToChar[i]=To[i];
-    x=i;
+int input(){
+  while(__INPUT_DONE==false){
+
   }
-  x++;
-  ToChar[x]='\0';
+  DisableInterrupts();
+
+  printo("INPUT: %s\n",__IN__);
+  return 1; /* true */
 }
