@@ -8,6 +8,7 @@
   #include <types.h>
   #include <stdarg.h>
   #include <Kernel.h>
+  #include <__IN__.h>
 
   static size_t s_pointer=0;
 

@@ -6,6 +6,7 @@
 #include <timer.h>
 #include <keyboard.h>
 #include <stdio.h>
+#include <__IN__.h>
 
 isrT InterruptHandlers[256];
 
@@ -139,7 +140,8 @@ void EnableInterrupts(){
 }
 
 void DisableInterrupts(){
-  KeyBuffer[0]='\0';
+  __IN__="\0";
+  __pointer=0;
   asm("cli");
   sti=0;
 }
