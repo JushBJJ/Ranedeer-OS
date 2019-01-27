@@ -131,6 +131,14 @@ void irqhandler(registersT *t){
 }
 
 void EnableInterrupts(){
+  for(int i=0;i<sizeof(IN->__IN__);i++){
+    IN->__IN__[i]='\0';
+  }
+
+  IN->__INPUT_DONE=false;
+  IN->__pointer=0;
+
+  
   isr_install();
   initTimer(50);
   initKeyboard();
@@ -140,8 +148,7 @@ void EnableInterrupts(){
 }
 
 void DisableInterrupts(){
-  __IN__="\0";
-  __pointer=0;
+  IN->__INPUT_DONE=false;
   asm("cli");
   sti=0;
 }

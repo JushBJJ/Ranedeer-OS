@@ -2,8 +2,7 @@
 #include <stdio.h>
 #include <Data.h>
 #include <ports.h>
-
-static int BARRIER;
+#include <__IN__.h>
 
 void KeyboardOut(u8 scancode);
 
@@ -12,7 +11,15 @@ void EnableKeyboard(){
 }
 
 void SetCursorBarrier(int offset){
-  BARRIER=offset;
+  IN->BARRIER=offset;
+}
+
+void SetCursorBarrierHere(){
+  IN->BARRIER=GetCursorOffset();
+}
+
+void DisableCursorBarrier(){
+  IN->BARRIER=-1;
 }
 
 void DisableInput(){
@@ -89,7 +96,7 @@ void KeyboardOut(u8 scancode){
     AddtoChar('+');
   break;
   case 0x0E:
-    if(GetCursorOffset()!=BARRIER){
+    if(GetCursorOffset()!=IN->BARRIER){
       Backspace();
     }
     BackspaceChar();
