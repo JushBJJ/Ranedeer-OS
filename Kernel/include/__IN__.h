@@ -2,7 +2,17 @@
   #define __IN__H
   #include <bool.h>
 
-  static char *__IN__;
-  static bool __INPUT_DONE=false;
-  static int __pointer;
+  struct INPUT{
+    char __IN__[100];
+    bool __INPUT_DONE;
+    int __pointer;
+    int BARRIER;
+    struct INPUT *__NEXT;
+  };
+
+  void SetCursorBarrier(int offset);
+  void SetCursorBarrierHere();
+  void DisableCursorBarrier();
+
+  struct INPUT *IN;
 #endif

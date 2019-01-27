@@ -2,11 +2,12 @@
 #include <isr.h>
 
 void _input(){
-  __INPUT_DONE=true;
+  IN->__INPUT_DONE=true;
 }
 
 int input(){
-  while(__INPUT_DONE==false){
+  EnableInterrupts();
+  while(IN->__INPUT_DONE==false){
 
   }
   DisableInterrupts();
