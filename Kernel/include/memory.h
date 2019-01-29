@@ -24,6 +24,7 @@ void *malloc(size_t size);
 void split(struct Malloc_Block *Fitting_Slot_Size,size_t size);
 void merge();
 void free(void* ptr);
+void malloc2(char *a,size_t size);
 
 /* MEMCP IS OLD AND ONLY USED FOR screen.c */
 void memcp(u8 *source,u8 *destination,int bytes);

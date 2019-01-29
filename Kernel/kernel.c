@@ -1,10 +1,18 @@
 #include <string.h>
 #include <stdio.h>
 #include <isr.h>
+#include <string.h>
+
+extern void test();
 
 void startkernel(){
   clear();
-  for(;;){
+  /* Interrupt Initialization */
+  I_CK->Keyboard=false;
+  I_CK->Call=true; /* ON BY DEFAULT */
+
+  EnableInterrupts();
+  /*for(;;){
     printo("> ");
     SetCursorBarrierHere();
     if(input()){
@@ -15,5 +23,6 @@ void startkernel(){
       else
         printo("Nope\n");
     }
-  }
+  }*/
+  test();
 }

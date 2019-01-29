@@ -1,14 +1,14 @@
 C_SOURCES = $(wildcard Kernel/libc/*/*.c Kernel/kernel.c Kernel/Kernel.c)
 HEADERS = $(wildcard Kernel/include/*.h)
 # Nice syntax for file extension replacement
-OBJ = ${C_SOURCES:.c=.o Kernel/libc/Assembly/AB1_interrupt.o}
+OBJ = ${C_SOURCES:.c=.o Kernel/libc/Assembly/AB1_interrupt.o test.asm}
 
 # Change this if your cross-compiler is somewhere else
 CC = $(HOME)/opt/cross/bin/i686-elf-gcc
 LD = $(HOME)/opt/cross/bin/i686-elf-ld
 GDB = /usr/bin/gdb
 # -g: Use debugging symbols in gcc
-CFLAGS = -g -ffunction-sections -ffreestanding -m32 -IKernel/include
+CFLAGS = -g -O1 -ffunction-sections -ffreestanding -m32 -IKernel/include
 
 # First rule is run by default
 Ranedeer.bin: Kernel/boot/bootsect.bin Kernel/kernel.bin
