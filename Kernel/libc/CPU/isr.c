@@ -95,7 +95,7 @@ char *ExceptionMessages[]={
   "Coproccessor Fault",
   "Alignment Check",
   "Machine Checked",
-  "Reserved",
+  "syscall",
   "Reserved",
   "Reserved",
   "Reserved",
@@ -112,6 +112,8 @@ char *ExceptionMessages[]={
 
 void IsrHandler(registersT *t){
   printo("Recieved Interrupt: %d\nException Message: %s\n",t->IntNo,ExceptionMessages[t->IntNo]);
+
+  printo("eax: %c\n",t->edi);
 }
 
 void RegisterInterruptHandler(u8 n,isrT handler){
@@ -131,17 +133,18 @@ void irqhandler(registersT *t){
 }
 
 void EnableInterrupts(){
-  for(int i=0;i<sizeof(IN->__IN__);i++){
-    IN->__IN__[i]='\0';
+  if(I_CK->Keyboard==true){
+    for(int i=0;i<sizeof(IN->__IN__);i++){
+      IN->__IN__[i]='\0';
+    }
+    IN->__INPUT_DONE=false;
+    IN->__pointer=0;
+    initKeyboard();
   }
-
-  IN->__INPUT_DONE=false;
-  IN->__pointer=0;
-
-  
-  isr_install();
-  initTimer(50);
-  initKeyboard();
+  if(I_CK->Call==true){
+    isr_install();
+    initTimer(50);
+  }
   if(!sti){
     asm("sti");
   }

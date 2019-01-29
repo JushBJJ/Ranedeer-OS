@@ -9,13 +9,20 @@
   #include <stdarg.h>
   #include <Kernel.h>
   #include <__IN__.h>
+  #include <bool.h>
+
+  struct IS{
+      bool Keyboard;
+      bool Call;
+      struct is *next;
+  };
+  static struct IS *I_CK;
 
   static size_t s_pointer=0;
 
   int GetCharSize(char *target);
   void _input();
   int input();
-  char *strtok(char str[], char delim);
   void SetToChar(char To[]);
   int CR_PRINTO(char *Message,int col, int row);
   void printnum(int num);
