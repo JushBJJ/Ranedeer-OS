@@ -24,5 +24,6 @@ void startkernel(){
         printo("Nope\n");
     }
   }*/
-  test();
+  //test();
+  printo("test");
 }
