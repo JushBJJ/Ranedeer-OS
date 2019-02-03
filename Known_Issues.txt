@@ -1,6 +1,0 @@
-Known Issues
-------------
-
-Issue #1:
-  Putting "%s","%d","%c" in printo without putting the same amount of arguments causes memory leak.
-  Example: 'printo("example %s %s","asd")'
