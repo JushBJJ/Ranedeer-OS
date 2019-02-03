@@ -4,8 +4,8 @@ HEADERS = $(wildcard Kernel/include/*.h)
 OBJ = ${C_SOURCES:.c=.o Kernel/libc/Assembly/AB1_interrupt.o test.asm}
 
 # Change this if your cross-compiler is somewhere else
-CC = $(HOME)/opt/cross/bin/i686-elf-gcc
-LD = $(HOME)/opt/cross/bin/i686-elf-ld
+CC = $(HOME)/opt/cross/bin/i386-elf-gcc
+LD = $(HOME)/opt/cross/bin/i386-elf-ld
 GDB = /usr/bin/gdb
 # -g: Use debugging symbols in gcc
 CFLAGS = -g -O1 -ffunction-sections -ffreestanding -m32 -IKernel/include
