@@ -1,7 +1,7 @@
 C_SOURCES = $(wildcard Kernel/libc/*/*.c Kernel/kernel.c Kernel/Kernel.c)
 HEADERS = $(wildcard Kernel/include/*.h)
 # Nice syntax for file extension replacement
-OBJ = ${C_SOURCES:.c=.o Kernel/libc/Assembly/AB1_interrupt.o test.asm}
+OBJ = ${C_SOURCES:.c=.o Kernel/libc/Assembly/AB1_interrupt.o}
 
 # Change this if your cross-compiler is somewhere else
 CC = $(HOME)/opt/cross/bin/i386-elf-gcc
