@@ -27,7 +27,7 @@ void sprintf_v(va_list ap,char *target,char *format){
 					break;
 				case 'c':
 					pointer++;
-					c=va_arg(ap,char):
+					c=va_arg(ap,char);
 					if(str[0]!='\0'){
 						str[0]=c;
 						str[1]='\0';
