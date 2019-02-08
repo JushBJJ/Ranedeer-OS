@@ -29,7 +29,9 @@
   void printc(char c);
   int putchar(char byte, int col, int row, char attr);
   int putnum(int n,int col, int row, char attr);
-
+  
   void printo(const char *message,...);
   void vprinto(const char *message,va_list ap);
+  void sprintf(char *target,char *format,...);
+
 #endif
