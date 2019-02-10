@@ -25,5 +25,8 @@ void startkernel(){
     }
   }*/
   //test();
-  printo("test");
+  printo("test\n");
+  char x[10]="lol";
+  sprintf(x,"aaa");
+  printo("%s\n",x);
 }

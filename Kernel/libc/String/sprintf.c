@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdarg.h>
+#include <string.h>
 
 void sprintf_v(va_list ap,char *target,char *format){
 	int x=0;
@@ -27,7 +28,7 @@ void sprintf_v(va_list ap,char *target,char *format){
 					break;
 				case 'c':
 					pointer++;
-					c=va_arg(ap,char);
+					c=va_arg(ap,int);
 					if(str[0]!='\0'){
 						str[0]=c;
 						str[1]='\0';
@@ -39,12 +40,12 @@ void sprintf_v(va_list ap,char *target,char *format){
 					x=va_arg(ap,int);
 					str=itoa(x);
 					sprintf(target,str);
-					break
+					break;
 				default:
 					pointer--;
 					target[pointer]=format[pointer];
 					pointer++;
-					break
+					break;
 			}
 		}
 		else{
@@ -55,7 +56,7 @@ void sprintf_v(va_list ap,char *target,char *format){
 	}				
 }
 
-void sprintf(char *target,char *format,..){
+void sprintf(char *target,char *format,...){
 	va_list ap;
 	va_start(ap,format);
 	sprintf_v(ap,target,format);
