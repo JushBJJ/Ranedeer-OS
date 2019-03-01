@@ -1,5 +1,6 @@
 #include <screen.h>
 #include <ports.h>
+#include <stdbool.h>
 #include <string.h>
 #include <Data.h>
 #include <stdio.h>
@@ -100,6 +101,24 @@
               c=va_arg(ap,int);
               printc(c);
               break;
+	    case 'k':
+	      pointer++;
+	      decimal=va_arg(ap,int);
+	      Set_Color(decimal);
+	      break;
+	    case 'b':
+	      pointer++;
+	      decimal=va_arg(ap,int);
+	      if(decimal==false){
+	      	printo("false");
+	      }
+	      else if(decimal==true){
+              	printo("true");
+	      }
+	      else{
+		      printo("UNKNOWN");
+	      }
+	      break;
             default:
               pointer=pointer-1;
               printc(message[pointer]);
@@ -108,10 +127,18 @@
           }
       }
       else{
-        printc(message[pointer]);
+        putchar(message[pointer],GetOffsetCol(GetCursorOffset()),GetOffsetRow(GetCursorOffset()),Get_Color());
         pointer++;
       }
     }
+  }
+
+  void Set_Color(int colorx){
+	  Current_Color=colorx;
+  }
+
+  int Get_Color(){
+	  return Current_Color;
   }
 
   void printnum(int num){

@@ -10,16 +10,20 @@
   #include <Kernel.h>
   #include <__IN__.h>
   #include <bool.h>
-
+  #include <color.h>
   struct IS{
       bool Keyboard;
       bool Call;
       struct is *next;
   };
+  
   static struct IS *I_CK;
 
   static size_t s_pointer=0;
+  static int Current_Color=0x0f;
 
+  void Set_Color(int colorx);
+  int Get_Color();
   int GetCharSize(char *target);
   void _input();
   int input();
@@ -34,4 +38,6 @@
   void vprinto(const char *message,va_list ap);
   void sprintf(char *target,char *format,...);
 
+  #define printk printo
+  #define printf printo
 #endif

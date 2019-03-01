@@ -3,11 +3,16 @@
 #include <Data.h>
 #include <ports.h>
 #include <__IN__.h>
+#include <Shell.h>
 
 void KeyboardOut(u8 scancode);
 
 void EnableKeyboard(){
   EnableInterrupts();
+}
+
+void DisableKeyboard(){
+  DisableInterrupts();
 }
 
 void SetCursorBarrier(int offset){
@@ -158,8 +163,8 @@ void KeyboardOut(u8 scancode){
   break;
   case 0x1C:
     printo("\n");
-    _input();
-  break;
+    AddtoChar('\n');
+    break;
   case 0x1D:
     /*Left Ctrl*/
   break;

@@ -2,31 +2,25 @@
 #include <stdio.h>
 #include <isr.h>
 #include <string.h>
-
-extern void test();
+#include <color.h>
+#include <timer.h>
+#include <Shell.h>
 
 void startkernel(){
-  clear();
-  /* Interrupt Initialization */
-  I_CK->Keyboard=false;
-  I_CK->Call=true; /* ON BY DEFAULT */
+  	clear();
+  	printo("%kKernel Loading\n",White_Text);
+  	/* Interrupt Initialization */
+  	I_CK->Keyboard=false;
+  	I_CK->Call=true; /* ON BY DEFAULT */
+	isr_install();
 
-  EnableInterrupts();
-  /*for(;;){
-    printo("> ");
-    SetCursorBarrierHere();
-    if(input()){
-      if(!strcmp(IN->__IN__,"END")){
-        printo("Halt.\n");
-        asm("hlt");
-      }
-      else
-        printo("Nope\n");
-    }
-  }*/
-  //test();
-  printo("test\n");
-  char x[10]="lol";
-  sprintf(x,"aaa");
-  printo("%s\n",x);
+	initTimer(50);
+	initKeyboard();
+
+	EnableInterrupts();
+  	printk("Kernel: Interrupts [%kSyscall%k] %k%b%k\n",Light_Green_Text,White_Text,Light_Green_Text,I_CK->Call,White_Text);
+	printk("Kernel: Interrupts [%kKeyboard%k] %k%b%k\n",Light_Green_Text,White_Text,Light_Red_Text,I_CK->Keyboard,White_Text);
+
+	printk("Loading Shell.\n");
+	Start_Shell();	
 }

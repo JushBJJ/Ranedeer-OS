@@ -133,21 +133,12 @@ void irqhandler(registersT *t){
 }
 
 void EnableInterrupts(){
-  if(I_CK->Keyboard==true){
     for(int i=0;i<sizeof(IN->__IN__);i++){
-      IN->__IN__[i]='\0';
-    }
-    IN->__INPUT_DONE=false;
-    IN->__pointer=0;
-    initKeyboard();
-  }
-  if(I_CK->Call==true){
-    isr_install();
-    initTimer(50);
-  }
-  if(!sti){
-    asm("sti");
-  }
+         IN->__IN__[i]='\0';
+    	 IN->__INPUT_DONE=false;
+   	 IN->__pointer=0;
+   }
+    asm volatile("sti");
 }
 
 void DisableInterrupts(){

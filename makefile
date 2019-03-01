@@ -1,5 +1,5 @@
-C_SOURCES = $(wildcard Kernel/libc/*/*.c Kernel/kernel.c Kernel/Kernel.c)
-HEADERS = $(wildcard Kernel/include/*.h)
+C_SOURCES = $(wildcard Kernel/libc/*/*.c Kernel/kernel.c Kernel/Kernel.c Shell/*.c Shell/*/*.c)
+HEADERS = $(wildcard Kernel/include/*.h Shell/include/*.h)
 # Nice syntax for file extension replacement
 OBJ = ${C_SOURCES:.c=.o Kernel/libc/Assembly/AB1_interrupt.o}
 
@@ -8,7 +8,7 @@ CC = $(HOME)/opt/cross/bin/i386-elf-gcc
 LD = $(HOME)/opt/cross/bin/i386-elf-ld
 GDB = /usr/bin/gdb
 # -g: Use debugging symbols in gcc
-CFLAGS = -g -O1 -ffunction-sections -ffreestanding -m32 -IKernel/include
+CFLAGS = -g -O1 -ffunction-sections -ffreestanding -m32 -IShell/include -IKernel/include -nostdlib
 
 # First rule is run by default
 Ranedeer.bin: Kernel/boot/bootsect.bin Kernel/kernel.bin
@@ -17,7 +17,7 @@ Ranedeer.bin: Kernel/boot/bootsect.bin Kernel/kernel.bin
 # '--oformat binary' deletes all symbols as a collateral, so we don't need
 # to 'strip' them manually on this case
 Kernel/kernel.bin: Kernel/boot/kernel_entry.o ${OBJ}
-	${LD} -z muldefs -o $@ -Ttext 0x1000 $^ --oformat binary
+	${LD} -z muldefs -z max-page-size=0x10000 -o $@ -Ttext 0x1000 $^ --oformat binary
 
 # Used for debugging purposes
 Kernel/kernel.elf: Kernel/boot/kernel_entry.o ${OBJ}
@@ -46,4 +46,4 @@ debug: Ranedeer.bin kernel.elf
 
 
 clean:
-	rm Kernel/*/*.o Kernel/libc/*/*.o Kernel/*.o Kernel/*.bin
+	rm Kernel/*/*.o Kernel/libc/*/*.o Kernel/*.o Kernel/*.bin Shell/*.o Shell/*/*.o

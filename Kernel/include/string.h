@@ -1,6 +1,9 @@
 #ifndef STRING_H
   #define STRING_H
   #include <types.h>
+
+  static int ptr;
+
   int strlen(char *str);
   void IntToAscii(int num, char target[]);
   int strcmp(const char* s1,const char *s2);

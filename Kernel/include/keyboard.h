@@ -15,5 +15,5 @@
 
   void BackspaceChar();
   void AddtoChar(char c);
-
+  void SendInput();
 #endif

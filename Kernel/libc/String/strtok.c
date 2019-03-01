@@ -1,29 +1,25 @@
 #include <stdio.h>
 #include <string.h>
 
+void print_str_decimal(char *x,int y){
+	for(int i=0;i<y;i++){
+		printo("%d: %c\t%d\n",i,x[i],x[i]);
+	}
+}
+
 char *strtok(char *ret, char *delim){
-  static char* buffer;
-  const char *d;
-
-  if(ret!=NULL)
-    buffer=ret;
-
-  if(buffer[0]=='\0')
-    return NULL;
-
-  char *x=buffer,*b;
-  for(b=buffer;*b!='\0';b++){
-    for(d=delim;*d!='\0';d++){
-      if(*b==*d){
-        *b='\0';
-        buffer=b+1;
-        if(b==x){
-          x++;
-          continue;
-        }
-        return x;
-      }
-    }
-  }
-  return x;
+	int ret_size=strlen(ret);
+	int delim_size=strlen(delim);
+	int x=0;
+	char *charret;
+	char *set=ret;
+	int i=0;
+	while(x<ret_size){
+		if(ret[x]==delim[0]){
+			print_str_decimal(charret,ret_size);			
+			return charret;
+		}
+		charret[x]=ret[x];
+		x++;
+	}
 }
