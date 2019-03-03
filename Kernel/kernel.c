@@ -18,9 +18,17 @@ void startkernel(){
 	initKeyboard();
 
 	EnableInterrupts();
+	if(I_CK->Call==false)
+		I_CK->Call=true;
+	if(I_CK->Keyboard==true)
+		I_CK->Keyboard=false;
+
+	DisableKeyboard();
+		
   	printk("Kernel: Interrupts [%kSyscall%k] %k%b%k\n",Light_Green_Text,White_Text,Light_Green_Text,I_CK->Call,White_Text);
 	printk("Kernel: Interrupts [%kKeyboard%k] %k%b%k\n",Light_Green_Text,White_Text,Light_Red_Text,I_CK->Keyboard,White_Text);
+	Start_Shell();
 
-	printk("Loading Shell.\n");
-	Start_Shell();	
+	int x;
+	while(x=0){}
 }
