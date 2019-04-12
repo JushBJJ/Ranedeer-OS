@@ -13,7 +13,8 @@
   char *strtok(char *Original_String, const char Split_C, bool OLD_NEW);
   char *strtok_new(char *Original_String, const char Split_C);
   char *strtok_old(char *Original_String, const char Split_C);
-
+  
+  void m_strcpy(char *x, char *y)
   char *strncpy(char *dest, const char *f,size_t n);
   char *strcpy(char *dest,char *f);
   str_t strstr(char* str,char* sub);
