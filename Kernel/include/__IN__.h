@@ -1,6 +1,6 @@
 #ifndef __IN__H
   #define __IN__H
-  #include <bool.h>
+  #include <stdbool.h>
 
   char INPUT_BLOCK[1024]; // 1 KB
   int Input_Block_Pointer;
