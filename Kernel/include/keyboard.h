@@ -6,6 +6,9 @@
 
   static int ready=0;
 
+  /* Memory used for keyboard input */
+  static char Key[2];
+
   void initKeyboard();
   void DisableKeyboard();
   void DisableInput();
