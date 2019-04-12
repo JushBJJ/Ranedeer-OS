@@ -9,6 +9,8 @@
   #define _REGSCREENCTRL 0x3D4
   #define _REGSCREENDATA 0x3D5
 
+  #define printf printo
+
   //Functions
   void SetCursorPosition(int col, int row);
   void clear();
