@@ -1,17 +1,17 @@
 #include <string.h>
+#include <memory.h>
 
 /* From `man strcpy` */
-char *strncpy(char *dest, const char *f,size_t n){
-  size_t i;
-  for(i=0;i<n&&f[i]!='\0';i++)
-    dest[i]=f[i];
-  for(;i<n;i++)
-    dest[i]='\0';
-
-  return dest;
+char *strncpy(char *Origin, char *Copied, size_t SizeOfString){  
+  for(size_t i=0; i<SizeOfString+1; i++){
+    Origin[i]=Copied[i];
+  }
+  
+  Origin[0+strlen(Origin)]=0x00;
+  return Origin;
 }
 
-char *strcpy(char *dest,char *f){
-  int x=strlen(f);
-  strncpy(dest,f,x);
+char *strcpy(char *Origin,char *Copied){
+  dest = strncpy(Origin, Copied, strlen(Copied);
+  return dest;
 }
