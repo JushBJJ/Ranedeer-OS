@@ -2,8 +2,8 @@
   #define __IN__H
   #include <stdbool.h>
 
-  char INPUT_BLOCK[1024]; // 1 KB
-  int Input_Block_Pointer;
+  static char INPUT_BLOCK[1024]; // 1 KB
+  static int Input_Block_Pointer;
 
   void SetCursorBarrier(int offset);
   void SetCursorBarrierHere();
