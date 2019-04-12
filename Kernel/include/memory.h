@@ -4,15 +4,15 @@
 #include <types.h>
 
 /* Malloc */
-static unsigned char mem[20000];
-static size_t Next_Index=0;
+static char Block[100000]; //100000 bytes = 100KB
+//static size_t Next_Index=0;
 
-struct Malloc_Block{
+/*struct Malloc_Block{
   size_t size;
   int free;
   struct Malloc_Block *next;
 };
-struct Malloc_Block *Free_List=(void*)mem;
+struct Malloc_Block *Free_List=(void*)mem;*/
 
 /* Functions */
 
@@ -20,7 +20,7 @@ void* memcpy(void *dest, void *src,size_t n);
 void* memset(void *dst,int c,size_t n);
 void initialize();
 
-void *malloc(size_t size);
+void *malloc(int Bytes);
 void split(struct Malloc_Block *Fitting_Slot_Size,size_t size);
 void merge();
 void free(void* ptr);
