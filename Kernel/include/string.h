@@ -14,9 +14,9 @@
   char *strtok_new(char *Original_String, const char Split_C);
   char *strtok_old(char *Original_String, const char Split_C);
   
-  void m_strcpy(char *x, char *y)
-  char *strncpy(char *dest, const char *f,size_t n);
-  char *strcpy(char *dest,char *f);
+  void m_strcpy(char *x, char *y);
+  char *strncpy(char *Origin, char *Copied, size_t SizeOfString);
+  char *strcpy(char *Origin,char *Copied);
   str_t strstr(char* str,char* sub);
 
   char *itoa(int val);
