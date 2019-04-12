@@ -1,7 +1,6 @@
 int strlen(char *str){
-  int x=0;
-  while(str[x]!='\0'){
-    x++;
-  }
-  return x;
+  int i = 0;
+  
+  for(; str[i]!=0x00 || str[i]!=0x13; i++){}
+  return i;
 }
